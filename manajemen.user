@@ -1,0 +1,57 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// ===== Base Class =====
+class user {
+protected:
+    static int globalId;
+    int id;
+    string nama;
+    string email;
+
+public:
+    user(string pNama, string pEmail) : nama(pNama), email(pEmail) {
+        id = generateId();
+    }
+
+    static int generateId() {
+        return ++globalId;
+    }
+
+    int getId() { return id; }
+    string getNama() { return nama; }
+    string getEmail() { return email; }
+};
+
+// inisialisasi static
+int user::globalId = 0;
+
+
+// ===== Class Member =====
+class member : public user {
+private:
+    bool status; // aktif / nonaktif
+
+public:
+    member(string nama, string email)
+        : user(nama, email), status(true) {}
+
+    void setStatus(bool s) {
+        status = s;
+    }
+
+    bool getStatus() {
+        return status;
+    }
+
+    void showProfile() {
+        cout << "ID     : " << id << endl;
+        cout << "Nama   : " << nama << endl;
+        cout << "Email  : " << email << endl;
+        cout << "Status : " << (status ? "Aktif" : "Nonaktif") << endl;
+        cout << "------------------------\n";
+    }
+};
+
+
